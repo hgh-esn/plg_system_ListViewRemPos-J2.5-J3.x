@@ -20,7 +20,7 @@
  * 1.0.2 + std-options enabled
  *       ° change cookie-handling js
  * 1.0.3 + correction of menutypes blockade
- * 
+ * 1.0.4   Import to github
  */
  
 //-- No direct access

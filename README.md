@@ -1,4 +1,4 @@
-# plg_system_ListViewRemPos_J3x_1.0.4
+# plg_system_ListViewRemPos
 
 This project (a joomla-plugin) for the administrator backend, solves the problem, that when selecting an entry 
 in a joomla listview the return to the listview goes not to the top(joomla standard) entry.

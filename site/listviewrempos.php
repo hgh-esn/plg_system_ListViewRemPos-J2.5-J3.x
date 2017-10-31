@@ -4,11 +4,22 @@
  *
  * @package    ListViewRemPos
  * @subpackage Plugin
- * @author     Hans-Guenter Heiserholt {@link http://www.web-hgh.de}
+ * @author     Hans-Guenter Heiserholt {@link http://www.moba-hgh.de}
  * @author     Created on 18-Sep-2014
  * @license    GNU/GPL Public License version 2 or later
  *
- * 1.0.0 First Edition
+ * 1.1.0 + changed all buttons with listitemtask ....
+ *       + changed homepage-/mail-address
+ *       + some errors into joomla message-queue
+ *       + asset-files to media-folder
+ *       + joomla updateserver
+ *       + default-option: option=com_fields    enabled  (since J3.7)
+ *       + up to github
+ * 1.0.5 + some code optimasation
+ * 1.0.4   - not released
+ * 1.0.3 + correction of menutypes blockade
+ * 1.0.2 + std-options enabled
+ *       ° change cookie-handling js
  * 1.0.1 + default-option: option=com_installer enabled 
  *       + default-option: option=com_tags      enabled
  *       + default-option: option=com_finder    enabled
@@ -17,11 +28,9 @@
  *       + default-option: option=com_redirect  enabled
  *       - com_menue
  *       + com_menus
- * 1.0.2 + std-options enabled
- *       ° change cookie-handling js
- * 1.0.3 + correction of menutypes blockade
- * 1.0.4   Import to github
- */
+ * 1.0.0 First Edition
+ * 
+ **/
  
 //-- No direct access
 
@@ -39,371 +48,209 @@ class plgSystemListViewRemPos extends JPlugin
      */
      
     var $com_adv_found;
-      
-    public function __construct(& $subject, $config)
-    {
-        $doSomething = 'here';
-
-      parent::__construct($subject, $config);
-      
-         /* ----------------------------------
-          * load the language file
-          * ---------------------------------- */  
-        
-//       $this->loadLanguage();
+    var $com_adv;
+    var $com_std_found;
+    var $com_std;
          
-         $language = JFactory::getLanguage();
-         $language->load('pjg_system_listviewrempos', JPATH_ADMINISTRATOR, 'en-GB', true);
-         $language->load('pjg_system_listviewrempos', JPATH_ADMINISTRATOR,    null, true);
-
+    public function __construct(& $subject, $config)
+    {       
+		parent::__construct($subject, $config);
+     
+		global $com_adv_found;
+		global $com_adv;
+		global $com_std_found;
+		global $com_std;
+   
          /* ----------------------------------
-          * load the plugin-params
-          * ---------------------------------- */
-        
-        $params = $this->params;   
-//       $params = {"comp_0":"com_jcomments","adv_parm_1":"","adv_parm_2":"","adv_parm_3":"","adv_parm_4":"","adv_parm_5":"","adv_parm_6":"","adv_parm_7":"","adv_parm_8":"","adv_parm_9":"","adv_parm_10":"","adv_parm_11":"","adv_parm_12":"","adv_parm_13":"","adv_parm_14":"","adv_parm_15":""}
-/*
-         $params_0 = $this->params->get('adv_parm_0');
-         $params_1 = $this->params->get('adv_parm_1');
-         $params_2 = $this->params->get('adv_parm_2');
-         $params_3 = $this->params->get('adv_parm_3');
-         $params_4 = $this->params->get('adv_parm_4');
-         $params_5 = $this->params->get('adv_parm_5');
-         $params_6 = $this->params->get('adv_parm_6');
-         $params_7 = $this->params->get('adv_parm_7');
-         $params_8 = $this->params->get('adv_parm_8');
-         $params_9 = $this->params->get('adv_parm_9');
-         $params_10 = $this->params->get('adv_parm_10');
-         $params_11 = $this->params->get('adv_parm_11');
-		 $params_12 = $this->params->get('adv_parm_12');
-         $params_13 = $this->params->get('adv_parm_13');
-         $params_14 = $this->params->get('adv_parm_14');
-         $params_14 = $this->params->get('adv_parm_15');
- */       
-//       echo  '<br /><br /><br />params_0 = ' .$params_0;
+          * load the default language file
+          * ---------------------------------- */  
+//    	$extension = 'ed3c_soutenance';
+//    	$base_dir = JPATH_SITE / JPATH_ADMINISTRATOR;
+//    	$lang->load($extension, $base_dir, $lg_tag, true);
+      
+		$language = JFactory::getLanguage();
+		$language->load('plg_system_listviewrempos', JPATH_ADMINISTRATOR, 'en-GB', true);
+		$language->load('plg_system_listviewrempos', JPATH_ADMINISTRATOR,    null, true);
 
-         /* ----------------------------------------
-          * fill variable for dynamic if-statement 
-          * ---------------------------------------- */
+//    	$this->loadparms();
+		$this->checkAdvParms();
+		$this->checkStdParms();
 
-         global $com_adv_found;
-         global $com_std_found;
-		 global $com_std;
+//    	Get a handle to the Joomla! application object
+		$application = JFactory::getApplication();
+      
+//    	Add a messages to the message queue
+//    	$application->enqueueMessage(JText::_('com_adv=' .$com_adv), 'notice');       
+//    	$application->enqueueMessage(JText::_('com_adv_found=' .$com_adv_found), 'notice');
+//    	$application->enqueueMessage(JText::_('com_std=' .$com_std), 'notice');
+//    	$application->enqueueMessage(JText::_('com_std_found=' .$com_std_found), 'notice');
+                                 
+//    	$session = JFactory::getSession();
+//    	$session->set('application.queue', null);
+         
+		if ($com_adv_found === true || $com_std_found === true) 
+		{
+			if	(strpos ($_SERVER['REQUEST_URI'],'=edit') || 
+				 strpos ($_SERVER['REQUEST_URI'],'id=')
+				) 
+			{
+				// do nothing in editor-mode !
+				return;     
+			}
 
-         $com_adv_found = false;
-         $com_std_found = false;
-		 $com_std='';
+			 /* ----------------------------------
+			  * get the document-objekt
+			  * ---------------------------------- */
 
-//       echo  '<br /><br /><br />function __construct:com_flg_found_load = ' .$com_adv_found;
-//       echo              '<br />function __construct: url = '  .$_SERVER['REQUEST_URI'];
+			$doc = & JFactory::getDocument();
 
-         /* ------------------------------------------------------------
-          *  user plugin listview call-strings 
-          *  if parm(0 ... 14) is used, search url and if found, set flag
-          * ------------------------------------------------------------ */
+			  /* ----------------------------------
+			  * put in js-script to load js-code in html
+			  * ---------------------------------- */
+			  
+//		    if( $this->params->get('add_extension_resources', false))  
+//			{
+//            	JHtml::_('jquery.framework');
+//105         	$doc->addScript('/plugins/system/listviewrempos/js/listviewrempos.js');
+				$doc->addScript('/media/plg_listviewrempos/js/listviewrempos.js');
+//			}
 
-      if ($this->params->get('adv_parm_0')) {
-         if (strpos ($_SERVER['REQUEST_URI'],'option=' .$this->params->get('adv_parm_0'))) {
- //			echo 'this-params-getadv_parm_0'.$params_0;
-            $com_adv_found = true;
-         }
-      }
-      elseif ($this->params->get('adv_parm_1')) {
-         if (strpos ($_SERVER['REQUEST_URI'],'option=' .$this->params->get('adv_parm_1'))) {
-            $com_adv_found = true;
-         }
-      }
-      elseif ($this->params->get('adv_parm_2')) {
-         if (strpos ($_SERVER['REQUEST_URI'],'option=' .$this->params->get('adv_parm_2'))) {
-            $com_adv_found = true;
-         }
-      }
-      elseif ($this->params->get('adv_parm_3')) {
-         if (strpos ($_SERVER['REQUEST_URI'],'option=' .$this->params->get('adv_parm_3'))) {
-            $com_adv_found = true;
-         }
-      }
-      elseif ($this->params->get('adv_parm_4')) {
-         if (strpos ($_SERVER['REQUEST_URI'],'option=' .$this->params->get('adv_parm_4'))) {
-            $com_adv_found = true;     
-         }
-      }
-	  elseif  ($this->params->get('adv_parm_5')) {
-         if (strpos ($_SERVER['REQUEST_URI'],'option=' .$this->params->get('adv_parm_5'))) {
-            $com_adv_found = true;
-         }
-      }
-	  elseif ($this->params->get('adv_parm_6')) {
-         if (strpos ($_SERVER['REQUEST_URI'],'option=' .$this->params->get('adv_parm_6'))) {
-            $com_adv_found = true;
-         }
-      }
-      elseif ($this->params->get('adv_parm_7')) {
-         if (strpos ($_SERVER['REQUEST_URI'],'option=' .$this->params->get('adv_parm_7'))) {
-            $com_adv_found = true;
-         }
-      }
-      elseif ($this->params->get('adv_parm_8')) {
-         if (strpos ($_SERVER['REQUEST_URI'],'option=' .$this->params->get('adv_parm_8'))) {
-            $com_adv_found = true;
-         }
-      }
-      elseif ($this->params->get('adv_parm_9')) {
-         if (strpos ($_SERVER['REQUEST_URI'],'option=' .$this->params->get('adv_parm_9'))) {
-            $com_adv_found = true;
-         }
-      }     
-      elseif ($this->params->get('adv_parm_10')) {
-         if (strpos ($_SERVER['REQUEST_URI'],'option=' .$this->params->get('adv_parm_10'))) {
-            $com_adv_found = true;
-         }
-      }
-      elseif ($this->params->get('adv_parm_11')) {
-         if (strpos ($_SERVER['REQUEST_URI'],'option=' .$this->params->get('adv_parm_11'))) {
-            $com_adv_found = true;
-         }
-      }
-      elseif ($this->params->get('adv_parm_12')) {
-         if (strpos ($_SERVER['REQUEST_URI'],'option=' .$this->params->get('adv_parm_12'))) {
-            $com_adv_found = true;
-         }
-      }
-	  elseif ($this->params->get('adv_parm_13')) {
-         if (strpos ($_SERVER['REQUEST_URI'],'option=' .$this->params->get('adv_parm_13'))) {
-            $com_adv_found = true;
-         }
-      }
-      elseif ($this->params->get('adv_parm_14')) {
-         if (strpos ($_SERVER['REQUEST_URI'],'option=' .$this->params->get('adv_parm_14'))) {
-            $com_adv_found = true;
-         }
-      }
-      elseif ($this->params->get('adv_parm_15')) {
-         if (strpos ($_SERVER['REQUEST_URI'],'option=' .$this->params->get('adv_parm_15'))) {
-            $com_adv_found = true;
-         }
-      }
-	  	  	  	  
-         /* -----------------------------------
-          * system-plugin listview call-strings 
-          * ----------------------------------- */
+			 /* ----------------------------------
+			  * set load-event to html
+			  * ---------------------------------- */  
 
-	  if (strpos ($_SERVER['REQUEST_URI'],'option=com_banners')) {
-		  If ($this->params->get('LVRP_com_banners')) {
-			$com_std_found = true;
-		  }
-      }		  	  
-      elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_categories')) {
-		  If ($this->params->get('LVRP_com_categories')) {
-			$com_std_found = true;
-		  }
-	  }
-      elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_contact')) {
- 		  If ($this->params->get('LVRP_com_contact')) {
-			$com_std_found = true;
-		  }
-      }
-      elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_content')) {
-		  If ($this->params->get('LVRP_com_content')) {
-			$com_std_found = true;
-		  }
-	  }		 
-      elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_finder')) {
-  		  If ($this->params->get('LVRP_com_finder')) {
-			$com_std_found = true;
-		  }
-      }
-      elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_installer')) {
-		  If ($this->params->get('LVRP_com_installer')) {
-			$com_std_found = true;
-		  }
-      }   
-      elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_languages')) {
- 		  If ($this->params->get('LVRP_com_languages')) {
-			$com_std_found = true;
-		  }
-      }
-      elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_media')) {
-  		  If ($this->params->get('LVRP_com_media')) {
-			$com_std_found = true;
-		  }
-      }
-      elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_menus')) {
-		 if (strpos ($_SERVER['REQUEST_URI'],'view=menutypes')) 
-		 {
-			 // do nothing
-		 }
-		 else {
- 		  If ($this->params->get('LVRP_com_menus')) {
-			$com_std_found = true;
-		  }
-		 }
-      }
-      elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_messages')) {
- 		  If ($this->params->get('LVRP_com_messages')) {
-			$com_std_found = true;
-		  }
-      }
-      elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_modules')) {
- 		  If ($this->params->get('LVRP_com_modules')) {
-			$com_std_found = true;
-		  }
-      }
-      elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_newsfeeds')) {
- 		  If ($this->params->get('LVRP_com_newsfeeds')) {
-			$com_std_found = true;
-		  }
-      }
-      elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_plugins')) {
-  		  If ($this->params->get('LVRP_com_plugins')) {
-			$com_std_found = true;
-		  }
-      }
-      elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_redirect')) {
-  		  If ($this->params->get('LVRP_com_redirect')) {
-			$com_std_found = true;
-		  }
-      }
-      elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_search')) {
- 		  If ($this->params->get('LVRP_com_search')) {
-			$com_std_found = true;
-		  }
-      }
-	  elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_tags')) {
- 		  If ($this->params->get('LVRP_com_tags')) {
-			$com_std_found = true;
-		  }
-      }
-	  elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_templates')) {
-		  If ($this->params->get('LVRP_com_templates')) {
-			$com_std_found = true;
-		  }
-      }
-      elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_users')) {
- 		  If ($this->params->get('LVRP_com_users')) {
-			$com_std_found = true;
-		  }
-      }
-      elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_weblinks')) {
-		If ($this->params->get('LVRP_com_weblinks')) {
-			$com_std_found = true;
-		  }
-      }
-
-//  echo    '<br /><br /><br />function __construct:com_flg_found = ' .$com_adv_found;    
-//	    $com_adv_found = false;
-//		$com_std_found = false;
-/*		
-        if ($com_adv_found === false && $com_std_found === false) {
-			// Get a handle to the Joomla! application object
-			$application = JFactory::getApplication();
-			
-			// Add a message to the message queue
- 			$application->enqueueMessage(JText::_('keine Komponenten Parameter > com_xxxxxxx < definiert!'), 'error');
-			$session = JFactory::getSession();
-			$session->set('application.queue', null);
+			$content = "\n 
+			/* Start dyn. event-management by plugin: listviewrempos */
+				window.addEventListener('load', function() { LVRP_scroll2Pos();} )
+			/* End dyn. event-management by plugin: listviewrempos */ \n\n";
+			$doc->addScriptDeclaration( $content );
 		}
-*/
-		if ($com_adv_found === true || $com_std_found === true) {
-         /* ----------------------------------
-         * get the document-objekt
-         * ---------------------------------- */
-
-         $doc =& JFactory::getDocument();
-
-         /* ----------------------------------
-         * load js-file
-         * ---------------------------------- */
-
-         $doc->addScript('/plugins/system/listviewrempos/js/listviewrempos.js');
-
-         /* ----------------------------------
-         * set load-event
-         * ---------------------------------- */  
-
-         $content = "/* Start dyn. event-management by plugin: listviewrempos */ 
-   window.addEvent('load', function() { 
-      go2pos(); 
-   }) 
-/* End dyn. event-management by plugin: listviewrempos */;";  
-
-         $doc->addScriptDeclaration( $content );
-
-        }
- //		JFactory::getApplication()->clearMessageQueue('all');
-//$session = JFactory::getSession();
-//$session->set('application.queue', null); 
-    }
-    
+//     JFactory::getApplication()->clearMessageQueue('all');   // not in J3
+//     $application->clearMessageQueue('all');               // not in J3
+//     $session = JFactory::getSession();
+//     $session->set('application.queue', null); 
+       return;
+	} // End function __construct
+  
     /**
      * Event onAfterRender
      */
-    public function onAfterRender()
-    { 	
-		if (strpos ($_SERVER['REQUEST_URI'],'layout=edit')) {
-          //
-          // do nothing in editor-mode !
-          //
-//       echo  '<br /><br /><br />onAfterRender: r e t u r n';
-          return;     
-		};
-	  		    
-         /* ----------------------------------
-          * get global variable
-          * ---------------------------------- */
+
+	public function onAfterRender() 
+	{            
+       /* ----------------------------------
+        * get global variable
+        * ---------------------------------- */
 
 		global $com_adv_found;
+		global $com_adv;
 		global $com_std_found;
-		
-         /* ----------------------------------
-          * do change html
+		global $com_std;
+      
+       /* ----------------------------------
+        * do change html
+        * ---------------------------------- */
+//    	echo  'onAfterRender:';           
+
+		if ($com_adv_found === true || $com_std_found === true)
+		{
+   //       echo  '<br /><br /><br />onAfterRender: com_flg_found=true';     
+          /* ----------------------------------
+          * get the rendered html
           * ---------------------------------- */
 
-		if ($com_adv_found === true || $com_std_found === true) {
+			$html = JResponse::getbody();
+          
+          /* ----------------------------------
+          * extract the body-code ... all between <body> .... </body>
+          * ---------------------------------- */
+
+			$regex = '#<body(.*?)</body># sU';
+			preg_match($regex, $html, $match);
+
+//       	echo htmlentities($match[0]);
+
+          /* ----------------------------------
+          * set some work variables
+          *
+          * Note: The oncl-variable contains the name
+          * of the javascript-funktion to get/save and set
+          * the clicked position within the list
+          * ---------------------------------- */
+
+			$oncl = 'onclick="LVRP_getPos()" ';
+			$admin_lnk ='/administrator/index.php?option=';
+         
+			if ($com_adv) 
+			{
+				$href = 'href="' .$admin_lnk .$com_adv;
+				$hrefH = 'href="http://' .$_SERVER['HTTP_HOST'] .$admin_lnk .$com_adv;
+				$href2 = 'href="index.php?option=' .$com_adv;       
+			}
+			elseif ($com_std) 
+			{
+				$href = 'href="' .$admin_lnk .$com_std;
+				$hrefH = 'href="http://' .$_SERVER['HTTP_HOST'] .$admin_lnk .$com_std;
+				$href2 = 'href="index.php?option=' .$com_std;             
+				$hrefP = 'href="http://' .$_SERVER['HTTP_HOST'] .'/images';   // bei com_media
+			}
+			else 
+			{
+//          	$href = 'href="' .$admin_lnk;
+//          	$hrefH = 'href="http://' .$_SERVER['HTTP_HOST'] .$admin_lnk;
+//             	$href2 = 'href="index.php?option=';
+
+//          	$application = JFactory::getApplication();
       
-//    echo  '<br /><br /><br />onAfterRender: com_flg_found=true';     
-         /* ----------------------------------
-         * get the rendered html
-         * ---------------------------------- */
-
-         $html = JResponse::getBody();
-
-         /* ----------------------------------
-         * get only the body code in match[0]
-         * ---------------------------------- */
-
-         $regex = '#<body(.*?)</body># sU';
-         preg_match($regex, $html, $match);
-
-         /* ----------------------------------
-         * set some work variables
-         *
-         * Note: The oncl-variable contains the name
-         * of the javascript-funktion to get and save
-         * the clicked position within the list
-         * ---------------------------------- */
-
-         $oncl = 'onclick="getDocPos()" ';
-         $href = 'href="/';
-         $href2 = 'href="index.php';
+				// Add a messages to the message queue
+				$application->enqueueMessage(JText::_(PLG_SYSTEM_LVRP_NOPARMS), 'warning');         
+			} 
+         
          /* ----------------------------------
          * do the change: 
-         * Put the onClick call before href
-         * ---------------------------------- */
+         * Put the onClick call before all matching href's
+         *
+         * str_replace ( such-string , ergebnis , zu durchsuchender string  )
+         * ----------------------------------------------------------------- */
 
-         $body_new = str_replace($href, $oncl .$href, $match[0]);      
+			$body_new = str_replace($href, $oncl .$href, $match[0]);
+			$body_new = str_replace($hrefH, $oncl .$hrefH, $body_new);
+			$body_new = str_replace($href2, $oncl .$href2, $body_new);
 
-         $body_new = str_replace($href2, $oncl .$href2, $body_new);      
+			if ($com_std == 'com_media') 
+			{
+				$body_new = str_replace($hrefP, $oncl .$hrefP, $body_new);
+			}
 
-         $html = str_replace($match[0], $body_new, $html);
+//       	if ($com_std == 'com_users'      ||
+//           	$com_std == 'com_banners'    ||
+//           	$com_std == 'com_categories' ||
+//           	$com_std == 'com_content'    ||
+//           	$com_std == 'com_plugins'    ||
+//           	$com_std == 'com_modules'    ||
+//           	$com_std == 'com_contact'    ||
+//           	$com_std == 'com_menus'    ) 
+//			{
+//          	/* 170319 */   
+//          	$oncl1 = 'return listItemTask';
+//          	$oncl2 = 'LVRP_getPos();' .$oncl1;
+//          	$body_new = str_replace($oncl1, $oncl2, $body_new);
+//       	}
+//
+//       /* change an existing onclick-statement - return listItemTask*/
+//
+			$oncl1 = 'return listItemTask';
+			$oncl2 = 'LVRP_getPos();' .$oncl1;
+			$body_new = str_replace($oncl1, $oncl2, $body_new);
+         
+			$html = str_replace($match[0], $body_new, $html);
 
          /* ----------------------------------
          * put back the changed html
          * ---------------------------------- */
-         JResponse::setBody($html);
-      }
-      return;
-    }
+			JResponse::setBody($html);
+        }
+    } // End  function onAfterRender
 
     /**
      * Log events.
@@ -413,13 +260,293 @@ class plgSystemListViewRemPos extends JPlugin
      */
     private function _log ($status, $comment)
     {
-//       echo '<br /><br /><br /><br /><br />HGH-Log:<br /><br />';
+//  	echo '<br /><br /><br /><br /><br />HGH-Log:<br /><br />';
    /*
         jimport('joomla.error.log');
 
         JLog::getInstance('plugin_system_example_log.php')
         ->addEntry(array('event' => $event, 'comment' => $comment));
    */
-    }
+	}
+	
+    public function loadparms($subject, $config) 
+    {
+       /* ----------------------------------
+          * load the extended plugin-params
+          * ---------------------------------- */
+
+       $params = $this->params;
+//     	echo 'params= ' .$params;
+//  	$params = '"adv_parm_0":"com_jcomments","adv_parm_1":"com_seoglossary","adv_parm_2":"","adv_parm_3":"","adv_parm_4":"","adv_parm_5":"","adv_parm_6":"","adv_parm_7":"","adv_parm_8":"","adv_parm_9":"","adv_parm_10":"","adv_parm_11":"","adv_parm_12":"","adv_parm_13":"","adv_parm_14":"","adv_parm_15":""';
+
+	}
+ 
+	public function checkAdvParms() 
+	{
+      /************************************************************
+      * This function checks if the joomla extended-call-strings 
+      * of   > extra installed extensions <   should be checked.
+      * -----------------------------------------------------------     
+      * Note: the user can define them by the extended plugin-parms
+      ************************************************************ */
+
+		global $com_adv_found;
+		global $com_adv;
+
+		$com_adv_found = false;
+		$com_adv ='';
+
+         /* ------------------------------------------------------------
+          *  user listview call-strings 
+          *  if parm(0 ... 15) is used, search url and if found, set flag
+          * ------------------------------------------------------------ */
+
+		if ( $this->params->get('adv_parm_0') ) {
+			if (strpos ($_SERVER['REQUEST_URI'], $this->params->get('adv_parm_0'))) {
+			 $com_adv_found = true;
+			 $com_adv = $this->params->get('adv_parm_0');
+			}
+		}
+		if ( $this->params->get('adv_parm_1') ) {
+			if (strpos ($_SERVER['REQUEST_URI'], $this->params->get('adv_parm_1'))) {
+			 $com_adv_found = true;
+			 $com_adv = $this->params->get('adv_parm_1');
+			}
+		}
+		if ( $this->params->get('adv_parm_2') ) {
+			if (strpos ($_SERVER['REQUEST_URI'], $this->params->get('adv_parm_2'))) {
+			 $com_adv_found = true;
+			 $com_adv = $this->params->get('adv_parm_2');
+			}
+		}
+		if ( $this->params->get('adv_parm_3') ) {
+			if (strpos ($_SERVER['REQUEST_URI'], $this->params->get('adv_parm_3'))) {
+			 $com_adv_found = true;
+			 $com_adv = $this->params->get('adv_parm_3');
+			}
+		}
+		if ( $this->params->get('adv_parm_4') ) {
+			if (strpos ($_SERVER['REQUEST_URI'], $this->params->get('adv_parm_4'))) {
+			 $com_adv_found = true;     
+			 $com_adv = $this->params->get('adv_parm_4');
+			}
+		}
+		if  ( $this->params->get('adv_parm_5') ) {
+			if (strpos ($_SERVER['REQUEST_URI'], $this->params->get('adv_parm_5'))) {
+			 $com_adv_found = true;
+			 $com_adv = $this->params->get('adv_parm_5');
+			}
+		}
+		if ( $this->params->get('adv_parm_6') ) {
+			if (strpos ($_SERVER['REQUEST_URI'], $this->params->get('adv_parm_6'))) {
+			 $com_adv_found = true;
+			 $com_adv = $this->params->get('adv_parm_6');
+			}
+		}
+		if ( $this->params->get('adv_parm_7') ) {
+			if (strpos ($_SERVER['REQUEST_URI'], $this->params->get('adv_parm_7'))) {
+			 $com_adv_found = true;
+			 $com_adv = $this->params->get('adv_parm_7');
+			}
+		}
+		if ( $this->params->get('adv_parm_8') ) {
+			if (strpos ($_SERVER['REQUEST_URI'], $this->params->get('adv_parm_8'))) {
+			 $com_adv_found = true;
+			 $com_adv = $this->params->get('adv_parm_8');
+			}
+		}
+		if ( $this->params->get('adv_parm_9') ) {
+			if (strpos ($_SERVER['REQUEST_URI'], $this->params->get('adv_parm_9'))) {
+			 $com_adv_found = true;
+			 $com_adv = $this->params->get('adv_parm_9');
+			}
+		}     
+		if ( $this->params->get('adv_parm_10') ) {
+			if (strpos ($_SERVER['REQUEST_URI'], $this->params->get('adv_parm_10'))) {
+			 $com_adv_found = true;
+			 $com_adv = $this->params->get('adv_parm_10');
+			}
+		}
+		if ( $this->params->get('adv_parm_11') ) {
+			if (strpos ($_SERVER['REQUEST_URI'], $this->params->get('adv_parm_11'))) {
+			 $com_adv_found = true;
+			 $com_adv = $this->params->get('adv_parm_11');
+			}
+		}
+		if ( $this->params->get('adv_parm_12') ) {
+			if (strpos ($_SERVER['REQUEST_URI'], $this->params->get('adv_parm_12'))) {
+			 $com_adv_found = true;
+			 $com_adv = $this->params->get('adv_parm_12');
+			}
+		}
+		if ( $this->params->get('adv_parm_13') ) {
+			if (strpos ($_SERVER['REQUEST_URI'], $this->params->get('adv_parm_13'))) {
+			 $com_adv_found = true;
+			 $com_adv = $this->params->get('adv_parm_13');
+			}
+		}
+		if ( $this->params->get('adv_parm_14') ) {
+			if (strpos ($_SERVER['REQUEST_URI'], $this->params->get('adv_parm_14'))) {
+			 $com_adv_found = true;
+			 $com_adv = $this->params->get('adv_parm_14');
+			}
+		}
+		if ( $this->params->get('adv_parm_15') ) {
+			if (strpos ($_SERVER['REQUEST_URI'], $this->params->get('adv_parm_15'))) {
+			 $com_adv_found = true;
+			 $com_adv = $this->params->get('adv_parm_15');
+			}
+		}
+		return;
+	} // End function checkAdvParms
+   
+	public function checkStdParms() 
+	{
+      /************************************************************
+      * This function checks if the call-strings of standard-extensions 
+      * of joomla should be checked. 
+      * -----------------------------------------------------------     
+      * Note: the user can switch them off/on via plugin-parms
+      ************************************************************ */
+		global $com_std_found;
+		global $com_std;
+      
+        $com_std_found = false;
+		$com_std='';
+
+         /* -----------------------------------
+          * system-plugin listview call-strings
+          * ! values are logical  !!!              
+          * ----------------------------------- */
+
+		if (strpos ($_SERVER['REQUEST_URI'],'option=com_banners') ) {
+			if ( $this->params->get('LVRP_com_banners') ) {
+			 $com_std_found = true;
+			 $com_std = 'com_banners';
+			}
+		}          
+		elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_categories') ) {
+			if ( $this->params->get('LVRP_com_categories') ) {
+			 $com_std_found = true;
+			 $com_std = 'com_categories';
+			}
+		}
+		elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_contact') ) {
+			if ( $this->params->get('LVRP_com_contact') ) {
+			 $com_std_found = true;
+			 $com_std = 'com_contact';
+			}
+		}
+		elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_content') ) {
+			if ( $this->params->get('LVRP_com_content') ) {
+			 $com_std_found = true;
+			 $com_std ='com_content';
+			}
+		}      
+		elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_finder') ) {
+			if ( $this->params->get('LVRP_com_finder') ) {
+			 $com_std_found = true;
+			 $com_std = 'com_finder';
+			}
+		}
+		elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_installer') ) {
+			if ( $this->params->get('LVRP_com_installer') ) {
+			 $com_std_found = true;
+			 $com_std = 'com_installer';
+			}
+		}   
+		elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_languages') ) {
+			if ( $this->params->get('LVRP_com_languages') ) {
+			 $com_std_found = true;
+			 $com_std = 'com_languages';
+			}
+		}
+		elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_media') ) {
+			if ( $this->params->get('LVRP_com_media') ) {
+			 $com_std_found = true;
+			 $com_std = 'com_media';
+			}
+		}
+		elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_menus') ) {
+		//     if (strpos ($_SERVER['REQUEST_URI'],'view=menutypes') ) {
+		//        // do nothing
+		//     }
+		//     else {
+		//     }
+			if ( $this->params->get('LVRP_com_menus') ) {
+			 $com_std_found = true;
+			 $com_std = 'com_menus';
+			}
+		}
+		elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_messages') ) {
+			if ( $this->params->get('LVRP_com_messages') ) {
+			 $com_std_found = true;
+			 $com_std = 'com_messages';
+			}
+		}
+		elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_modules') ) {
+			if ( $this->params->get('LVRP_com_modules') ) {
+			 $com_std_found = true;
+			 $com_std = 'com_modules';
+			}
+		}
+		elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_newsfeeds') ) {
+			if ( $this->params->get('LVRP_com_newsfeeds') ) {
+			 $com_std_found = true;
+			 $com_std = 'com_newsfeeds';
+			}
+		}
+		elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_plugins') ) {
+			if ( $this->params->get('LVRP_com_plugins') ) {
+			 $com_std_found = true;
+			 $com_std = 'com_plugins';
+			}
+		}
+		elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_redirect') ) {
+			if ( $this->params->get('LVRP_com_redirect') ) {
+			 $com_std_found = true;
+			 $com_std = 'com_redirect';
+			}
+		}
+		elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_search') ) {
+			if ( $this->params->get('LVRP_com_search') ) {
+			 $com_std_found = true;
+			 $com_std = 'com_search';
+			}
+		}
+		elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_tags') ) {
+			if ( $this->params->get('LVRP_com_tags') ) {
+			 $com_std_found = true;
+			 $com_std = 'com_tags';
+			}
+		}
+		elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_templates') ) {
+			if ( $this->params->get('LVRP_com_templates') ) {
+			 $com_std_found = true;
+			 $com_std = 'com_templates';
+			}
+		}
+		elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_users') ) {
+		//       echo '<br />'.'com_usersfound';
+			if ( $this->params->get('LVRP_com_users') ) {
+			 $com_std_found = true;
+			 $com_std = 'com_users';
+			}
+		}
+		elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_weblinks') ) {
+			if ( $this->params->get('LVRP_com_weblinks') ) {
+			 $com_std_found = true;
+			 $com_std = 'com_weblinks';
+			}
+		}
+		elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_fields') ) {   // since 3.7
+			if ( $this->params->get('LVRP_com_fields') ) {
+			 $com_std_found = true;
+			 $com_std = 'com_fields';
+			}
+		}
+
+		return;
+	} // End function checkStdParms    
 }
 ?>

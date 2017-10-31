@@ -43,12 +43,27 @@ Legend:
  - -> Removed
  ! -> Note
 ______________________________________________
-
+31.Okt.2017
+ ! V1.1.0: J3x
+ ^ changed all buttons with listitemtask ....
+ ^ changed homepage-/mail-address
+ + some errors into joomla message-queue
+ + asset-files to media-folder
+ + joomla updateserver
+ + default-option: option=com_fields    enabled  (since J3.7)
+ + up to github
+16.Aug.2015
+ ! V1.0.5: J3x
+ # code optimazation
+ # fix Standard-Parm handling 
+ # fix language files
+ ^ remove mootools usage
+ + save x- and y-pageposition and reload it
 11.Apr-2015
  ! V1.0.4: J3x
  + std.-options switchable
- + change parameter handling
- + change language files
+ ^ change parameter handling
+ ^ change language files
 06.Apr-2015
  ! V1.0.3: J3x
  + std.-options enableded

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="plugin" version="3.0" method="upgrade" group="system">
   <name>System - ListView Remember Position</name>
-  <creationDate>31-Oct-2017</creationDate>
+  <creationDate>01-Nov-2017</creationDate>
   <author>Hans-Guenter Heiserholt</author>
   <authorEmail>joomla@moba-hgh.de</authorEmail>
   <authorUrl>http://www.moba-hgh.de</authorUrl>
   <copyright>JED-HGH | Joomla Extension Development by HGH</copyright>
   <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-  <version>1.1.0</version>
+  <version>1.1.1</version>
   <description>Rückkehr zur Auswahlposition in Joomla Auflistung. / Return to the selected position in Joomla listviews.
 <![CDATA[
    <hr />
@@ -70,7 +70,7 @@
        </table>
  </div>
  ]]>
-   </description>
+  </description>
   <scriptfile/>
   <install>
     <sql/>
@@ -96,118 +96,118 @@
     <folder>js</folder>
   </media>
   <params/>
-  <config>
-    <fields name="params">
-      <fieldset name="basic">
-        <field name="" type="spacer" default="" label="PLG_SYSTEM_LVRP_BAS_TIPCONF_TXT" description="PLG_SYSTEM_LVRP_BAS_TIPCONF_DESC" />
-        <field name="" type="spacer" default="" label="PLG_SYSTEM_LVRP_BAS_ADDCONF_TXT" description="PLG_SYSTEM_LVRP_BAS_ADDCONF_DESC" />
-        <field name="" type="spacer" default="" label="PLG_SYSTEM_LVRP_BAS_DOK_TXT" description="" />
-        <field name="" type="spacer" default="" label="PLG_SYSTEM_LVRP_CR" description="" />
-      </fieldset>
-      <fieldset name="LVRP_standard">
-        <field name="Filler" type="spacer" default="" label="PLG_SYSTEM_LVRP_STD_LABEL_URL_OPTIONS_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_URL_OPTIONS_DESC">
-      </field>
-        <field name="LVRP_com_banners" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_BANNERS_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_BANNERS_DESC">
-          <option value="0">JNO</option>
-          <option value="1">JYES</option>
-        </field>
-        <field name="LVRP_com_categories" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_CATEGORIES_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_CATEGORIES_DESC">
-          <option value="0">JNO</option>
-          <option value="1">JYES</option>
-        </field>
-        <field name="LVRP_com_contact" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_CONTACT_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_CONTACT_DESC">
-          <option value="0">JNO</option>
-          <option value="1">JYES</option>
-        </field>
-        <field name="LVRP_com_content" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_CONTENT_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_CONTENT_DESC">
-          <option value="0">JNO</option>
-          <option value="1">JYES</option>
-        </field>
-        <field name="LVRP_com_fields" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_FIELDS_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_FIELDS_DESC">
-          <option value="0">JNO</option>
-          <option value="1">JYES</option>
-        </field>
-        <field name="LVRP_com_finder" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_FINDER_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_FINDER_DESC">
-          <option value="0">JNO</option>
-          <option value="1">JYES</option>
-        </field>
-        <field name="LVRP_com_installer" type="radio" class="btn-group" default="0" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_INSTALLER_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_INSTALLER_DESC">
-          <option value="0">JNO</option>
-          <option value="1">JYES</option>
-        </field>
-        <field name="LVRP_com_languages" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_LANGUAGES_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_LANGUAGES_DESC">
-          <option value="0">JNO</option>
-          <option value="1">JYES</option>
-        </field>
-        <field name="LVRP_com_media" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_MEDIA_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_MEDIA_DESC">
-          <option value="0">JNO</option>
-          <option value="1">JYES</option>
-        </field>
-        <field name="LVRP_com_menus" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_MENUS_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_MENUS_DESC">
-          <option value="0">JNO</option>
-          <option value="1">JYES</option>
-        </field>
-        <field name="LVRP_com_messages" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_MESSAGES_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_MESSAGES_DESC">
-          <option value="0">JNO</option>
-          <option value="1">JYES</option>
-        </field>
-        <field name="LVRP_com_modules" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_MODULES_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_MODULES_DESC">
-          <option value="0">JNO</option>
-          <option value="1">JYES</option>
-        </field>
-        <field name="LVRP_com_newsfeeds" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_NEWSFEEDS_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_NEWSFEEDS_DESC">
-          <option value="0">JNO</option>
-          <option value="1">JYES</option>
-        </field>
-        <field name="LVRP_com_plugins" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_PLUGINS_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_PLUGINS_DESC">
-          <option value="0">JNO</option>
-          <option value="1">JYES</option>
-        </field>
-        <field name="LVRP_com_redirect" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_REDIRECT_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_REDIRECT_DESC">
-          <option value="0">JNO</option>
-          <option value="1">JYES</option>
-        </field>
-        <field name="LVRP_com_search" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_SEARCH_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_SEARCH_DESC">
-          <option value="0">JNO</option>
-          <option value="1">JYES</option>
-        </field>
-        <field name="LVRP_com_tags" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_TAGS_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_TAGS_DESC">
-          <option value="0">JNO</option>
-          <option value="1">JYES</option>
-        </field>
-        <field name="LVRP_com_templates" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_TEMPLATES_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_TEMPLATES_DESC">
-          <option value="0">JNO</option>
-          <option value="1">JYES</option>
-        </field>
-        <field name="LVRP_com_users" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_USERs_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_USERs_DESC">
-          <option value="0">JNO</option>
-          <option value="1">JYES</option>
-        </field>
-        <field name="LVRP_com_weblinks" type="radio" class="btn-group" default="0" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_WEBLINKS_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_WEBLINKS_DESC">
-          <option value="0">JNO</option>
-          <option value="1">JYES</option>
-        </field>
-      </fieldset>
-      <fieldset name="advanced">
-        <field name="filler" type="spacer" default="" label="PLG_SYSTEM_LVRP_ADV_HEAD_TXT" description="PLG_SYSTEM_LVRP_ADV_HEAD_DESC" />
-        <field name="adv_parm_0" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
-        <field name="adv_parm_1" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
-        <field name="adv_parm_2" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
-        <field name="adv_parm_3" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
-        <field name="adv_parm_4" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
-        <field name="adv_parm_5" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
-        <field name="adv_parm_6" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
-        <field name="adv_parm_7" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
-        <field name="adv_parm_8" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
-        <field name="adv_parm_9" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
-        <field name="adv_parm_10" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
-        <field name="adv_parm_11" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
-        <field name="adv_parm_12" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
-        <field name="adv_parm_13" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
-        <field name="adv_parm_14" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
-        <field name="adv_parm_15" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
-        <field name="" type="spacer" default="" label="PLG_SYSTEM_LVRP_CR" description="" />
-      </fieldset>
-    </fields>
-  </config>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="" type="spacer" default="" label="PLG_SYSTEM_LVRP_BAS_TIPCONF_TXT" description="PLG_SYSTEM_LVRP_BAS_TIPCONF_DESC" />
+				<field name="" type="spacer" default="" label="PLG_SYSTEM_LVRP_BAS_ADDCONF_TXT" description="PLG_SYSTEM_LVRP_BAS_ADDCONF_DESC" />
+				<field name="" type="spacer" default="" label="PLG_SYSTEM_LVRP_BAS_DOK_TXT" description="" />
+				field name="" type="spacer" default="" label="PLG_SYSTEM_LVRP_CR" description="" />
+			</fieldset>
+			<fieldset name="LVRP_standard">
+				<field name="Filler" type="spacer" default="" label="PLG_SYSTEM_LVRP_STD_LABEL_URL_OPTIONS_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_URL_OPTIONS_DESC">
+				</field>
+				<field name="LVRP_com_banners" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_BANNERS_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_BANNERS_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="LVRP_com_categories" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_CATEGORIES_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_CATEGORIES_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="LVRP_com_contact" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_CONTACT_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_CONTACT_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="LVRP_com_content" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_CONTENT_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_CONTENT_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="LVRP_com_fields" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_FIELDS_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_FIELDS_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="LVRP_com_finder" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_FINDER_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_FINDER_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="LVRP_com_installer" type="radio" class="btn-group" default="0" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_INSTALLER_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_INSTALLER_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="LVRP_com_languages" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_LANGUAGES_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_LANGUAGES_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="LVRP_com_media" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_MEDIA_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_MEDIA_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="LVRP_com_menus" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_MENUS_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_MENUS_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="LVRP_com_messages" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_MESSAGES_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_MESSAGES_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="LVRP_com_modules" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_MODULES_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_MODULES_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="LVRP_com_newsfeeds" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_NEWSFEEDS_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_NEWSFEEDS_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="LVRP_com_plugins" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_PLUGINS_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_PLUGINS_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="LVRP_com_redirect" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_REDIRECT_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_REDIRECT_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="LVRP_com_search" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_SEARCH_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_SEARCH_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="LVRP_com_tags" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_TAGS_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_TAGS_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="LVRP_com_templates" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_TEMPLATES_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_TEMPLATES_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="LVRP_com_users" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_USERs_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_USERs_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="LVRP_com_weblinks" type="radio" class="btn-group" default="0" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_WEBLINKS_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_WEBLINKS_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+			</fieldset>
+			<fieldset name="advanced">
+				<field name="filler" type="spacer" default="" label="PLG_SYSTEM_LVRP_ADV_HEAD_TXT" description="PLG_SYSTEM_LVRP_ADV_HEAD_DESC" />
+				<field name="adv_parm_0" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
+				<field name="adv_parm_1" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
+				<field name="adv_parm_2" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
+				<field name="adv_parm_3" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
+				<field name="adv_parm_4" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
+				<field name="adv_parm_5" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
+				<field name="adv_parm_6" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
+				<field name="adv_parm_7" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
+				<field name="adv_parm_8" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
+				<field name="adv_parm_9" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
+				<field name="adv_parm_10" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
+				<field name="adv_parm_11" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
+				<field name="adv_parm_12" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
+				<field name="adv_parm_13" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
+				<field name="adv_parm_14" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
+				<field name="adv_parm_15" type="text" default="" label="PLG_SYSTEM_LVRP_ADV_LABEL_TXT" description="PLG_SYSTEM_LVRP_ADV_LABEL_DESC" />
+				<field name="" type="spacer" default="" label="PLG_SYSTEM_LVRP_CR" description="" />
+			</fieldset>
+		</fields>
+	</config>
 </extension>

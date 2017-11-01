@@ -85,7 +85,7 @@ class plgSystemListViewRemPos extends JPlugin
 				/* ----------------------------------
 				 * put in js-script to load js-code in html
 				 * ---------------------------------- */
-					$doc->addScript('/media/plg_listviewrempos/js/listviewrempos.js');
+					$doc->addScript('../media/plg_listviewrempos/js/listviewrempos.js');
 				/* ----------------------------------
 				 * set load-event to html
 				 * ---------------------------------- */  
@@ -183,6 +183,13 @@ class plgSystemListViewRemPos extends JPlugin
      */
 		private function _log ($status, $comment)
 		{
+		}
+		public function loadparms($subject, $config) 
+		{
+			/* ----------------------------------
+			 * load the extended plugin-params
+			 * ---------------------------------- */
+			$params = $this->params;
 		}
 		public function checkAdvParms() 
 		{

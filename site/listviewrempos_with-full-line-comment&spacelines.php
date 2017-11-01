@@ -32,45 +32,72 @@
  * 1.0.0 First Edition
  * 
  **/
+ 
+//-- No direct access
+
 defined( '_JEXEC' ) || die( 'Restricted access' );
+
 jimport( 'joomla.plugin.plugin' );
+
 class plgSystemListViewRemPos extends JPlugin
 {
     /**
      * Define some variables for later global use
      */
+     
 		var $com_adv_found;
 		var $com_adv;
 		var $com_std_found;
 		var $com_std;
+	
     /**
      * Constructor
      *
      * @param object $subject The object to observe
      * @param array $config  An array that holds the plugin configuration
      */
+             
 		public function __construct(& $subject, $config)
 		{       
 			parent::__construct($subject, $config);
+		 
 			global $com_adv_found;
 			global $com_adv;
 			global $com_std_found;
 			global $com_std;
+	   
 			/* ----------------------------------
 			 * load the default language file
 			 * ---------------------------------- */  
+//	    	$extension = 'ed3c_soutenance';
+//	    	$base_dir = JPATH_SITE / JPATH_ADMINISTRATOR;
+//	    	$lang->load($extension, $base_dir, $lg_tag, true);
+		  
 			$language = JFactory::getLanguage();
 			$language->load('plg_system_listviewrempos', JPATH_ADMINISTRATOR, 'en-GB', true);
 			$language->load('plg_system_listviewrempos', JPATH_ADMINISTRATOR,    null, true);
+
 			/* ----------------------------------
 			 * check plugin-parms
 			 * ---------------------------------- */  
+//	    	$this->loadparms();
 			$this->checkAdvParms();
 			$this->checkStdParms();
 			/* ----------------------------------
 			 * Get a handle to the Joomla! application object
 			 * ---------------------------------- */  
+
 			$application = JFactory::getApplication();
+		  
+//	    	Add a messages to the message queue
+//	    	$application->enqueueMessage(JText::_('com_adv=' .$com_adv), 'notice');       
+//	    	$application->enqueueMessage(JText::_('com_adv_found=' .$com_adv_found), 'notice');
+//	    	$application->enqueueMessage(JText::_('com_std=' .$com_std), 'notice');
+//	    	$application->enqueueMessage(JText::_('com_std_found=' .$com_std_found), 'notice');
+									 
+//	    	$session = JFactory::getSession();
+//	    	$session->set('application.queue', null);
+			 
 			if ($com_adv_found === true || $com_std_found === true) 
 			{
 				if ( strpos ($_SERVER['REQUEST_URI'],'=edit') || strpos ($_SERVER['REQUEST_URI'],'id=')	) 
@@ -78,51 +105,75 @@ class plgSystemListViewRemPos extends JPlugin
 		//			 do nothing in editor-mode !
 					return;     
 				}
+
 				/* ----------------------------------
 				 * get the document-objekt
 				 * ---------------------------------- */
+
 				$doc = & JFactory::getDocument();
+
 				/* ----------------------------------
 				 * put in js-script to load js-code in html
 				 * ---------------------------------- */
-					$doc->addScript('/media/plg_listviewrempos/js/listviewrempos.js');
+				  
+//	105         	$doc->addScript('../plugins/system/listviewrempos/js/listviewrempos.js');
+					$doc->addScript('../media/plg_listviewrempos/js/listviewrempos.js');
+
 				/* ----------------------------------
 				 * set load-event to html
 				 * ---------------------------------- */  
+
 				$content = "\n 
 				/* Start dyn. event-management by plugin: listviewrempos */
 					window.addEventListener('load', function() { LVRP_scroll2Pos();} )
 				/* End dyn. event-management by plugin: listviewrempos */ \n\n";
 				$doc->addScriptDeclaration( $content );
 			}
+//	     	JFactory::getApplication()->clearMessageQueue('all');   // not in J3
+//	     	$application->clearMessageQueue('all');               // not in J3
+//	     	$session = JFactory::getSession();
+//	     	$session->set('application.queue', null); 
 			return;
 		} // End function __construct
+  
     /**
      * Event onAfterRender
      */
+
 		public function onAfterRender() 
 		{            
 			/* ----------------------------------
 			 * get global variable
 			 * ---------------------------------- */
+
 			global $com_adv_found;
 			global $com_adv;
 			global $com_std_found;
 			global $com_std;
+		  
 			/* ----------------------------------
 			 * do change html
 			 * ---------------------------------- */
+//		   	echo  'onAfterRender:';           
+
 			if ($com_adv_found === true || $com_std_found === true)
 			{
+//		      	echo  '<br /><br /><br />onAfterRender: com_flg_found=true';     
 				/* ----------------------------------
 				 * get the rendered html
 				 * ---------------------------------- */
+
 				$html = JResponse::getbody();
+			  
 				/* ----------------------------------
 				 * extract the body-code ... all between <body> .... </body>
 				 * ---------------------------------- */
+
 				$regex = '#<body(.*?)</body># sU';
 				preg_match($regex, $html, $match);
+
+//		       	echo htmlentities($match[0]);
+
 				/* ----------------------------------
 				 * set some work variables
 				 *
@@ -130,8 +181,10 @@ class plgSystemListViewRemPos extends JPlugin
 				 * of the javascript-funktion to get/save and set
 				 * the clicked position within the list
 				 * ---------------------------------- */
+
 				$oncl = 'onclick="LVRP_getPos()" ';
 				$admin_lnk ='/administrator/index.php?option=';
+			 
 				if ($com_adv) 
 				{
 					$href = 'href="' .$admin_lnk .$com_adv;
@@ -147,43 +200,94 @@ class plgSystemListViewRemPos extends JPlugin
 				}
 				else 
 				{
+//		          	$href = 'href="' .$admin_lnk;
+//		          	$hrefH = 'href="http://' .$_SERVER['HTTP_HOST'] .$admin_lnk;
+//		            $href2 = 'href="index.php?option=';
+
+//		          	$application = JFactory::getApplication();
+		  
 				/*
 				 * Add a messages to the message queue
 				 */
 					$application->enqueueMessage(JText::_(PLG_SYSTEM_LVRP_NOPARMS), 'warning');         
 				} 
+			 
 				/* ----------------------------------
 				 * do the change: 
 				 * Put the onClick call before all matching href's
 				 *
 				 * str_replace ( such-string , ergebnis , zu durchsuchender string  )
 				 * ----------------------------------------------------------------- */
+
 				$body_new = str_replace($href, $oncl .$href, $match[0]);
 				$body_new = str_replace($hrefH, $oncl .$hrefH, $body_new);
 				$body_new = str_replace($href2, $oncl .$href2, $body_new);
+
 				if ($com_std == 'com_media') 
 				{
 					$body_new = str_replace($hrefP, $oncl .$hrefP, $body_new);
 				}
+
+//		       	if ($com_std == 'com_users'      ||
+//		           	$com_std == 'com_banners'    ||
+//		           	$com_std == 'com_categories' ||
+//		           	$com_std == 'com_content'    ||
+//		           	$com_std == 'com_plugins'    ||
+//		           	$com_std == 'com_modules'    ||
+//		           	$com_std == 'com_contact'    ||
+//		           	$com_std == 'com_menus'    ) 
+//					{
+//		          	/* 170319 */   
+//		          	$oncl1 = 'return listItemTask';
+//		          	$oncl2 = 'LVRP_getPos();' .$oncl1;
+//		          	$body_new = str_replace($oncl1, $oncl2, $body_new);
+//		       	}
+//		
+//		       /* change an existing onclick-statement - return listItemTask*/
+//		
 				$oncl1 = 'return listItemTask';
 				$oncl2 = 'LVRP_getPos();' .$oncl1;
 				$body_new = str_replace($oncl1, $oncl2, $body_new);
+			 
 				$html = str_replace($match[0], $body_new, $html);
+
 				/* ----------------------------------
 				 * put back the changed html
 				 * ---------------------------------- */
+				 
 				JResponse::setBody($html);
 			}
 		} // End  function onAfterRender
+
     /**
      * Log events.
      *
      * @param string $event The event to be logged.
      * @param string $comment A comment about the event.
      */
+	 
 		private function _log ($status, $comment)
 		{
+//		  	echo '<br /><br /><br /><br /><br />HGH-Log:<br /><br />';
+ 
+//			jimport('joomla.error.log');
+//	
+//		  	JLog::getInstance('plugin_system_example_log.php')
+//		  	->addEntry(array('event' => $event, 'comment' => $comment));
 		}
+	
+		public function loadparms($subject, $config) 
+		{
+			/* ----------------------------------
+			 * load the extended plugin-params
+			 * ---------------------------------- */
+
+			$params = $this->params;
+//     		echo 'params= ' .$params;
+//  		$params = '"adv_parm_0":"com_jcomments","adv_parm_1":"com_seoglossary","adv_parm_2":"","adv_parm_3":"","adv_parm_4":"","adv_parm_5":"","adv_parm_6":"","adv_parm_7":"","adv_parm_8":"","adv_parm_9":"","adv_parm_10":"","adv_parm_11":"","adv_parm_12":"","adv_parm_13":"","adv_parm_14":"","adv_parm_15":""';
+
+		}
+ 
 		public function checkAdvParms() 
 		{
 		  /************************************************************
@@ -192,14 +296,18 @@ class plgSystemListViewRemPos extends JPlugin
 		   * -----------------------------------------------------------     
 		   * Note: the user can define them by the extended plugin-parms
 		   ************************************************************ */
+
 			global $com_adv_found;
 			global $com_adv;
+
 			$com_adv_found = false;
 			$com_adv = '';
+
 			/* ------------------------------------------------------------
 			 *  user listview call-strings 
 			 *  if parm(0 ... 15) is used, search url and if found, set flag
 			 * ------------------------------------------------------------ */
+
 			if ( $this->params->get('adv_parm_0') ) {
 				if (strpos ($_SERVER['REQUEST_URI'], $this->params->get('adv_parm_0'))) {
 					$com_adv_found = true;
@@ -298,6 +406,7 @@ class plgSystemListViewRemPos extends JPlugin
 			}
 			return;
 		} // End function checkAdvParms
+   
 		public function checkStdParms() 
 		{
 			/************************************************************
@@ -308,12 +417,15 @@ class plgSystemListViewRemPos extends JPlugin
 			 ************************************************************ */
 			global $com_std_found;
 			global $com_std;
+		  
 			$com_std_found = false;
 			$com_std = '';
+
 			/* -----------------------------------
 			 * system-plugin listview call-strings
 			 * ! values are logical  !!!              
 			 * ----------------------------------- */
+
 			if (strpos ($_SERVER['REQUEST_URI'],'option=com_banners') ) {
 				if ( $this->params->get('LVRP_com_banners') ) {
 					$com_std_found = true;
@@ -363,6 +475,11 @@ class plgSystemListViewRemPos extends JPlugin
 				}
 			}
 			elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_menus') ) {
+//   	  		if (strpos ($_SERVER['REQUEST_URI'],'view=menutypes') ) {
+//  	    		  // do nothing
+//   	  		}
+//   	  		else {
+//   	  		}
 				if ( $this->params->get('LVRP_com_menus') ) {
 					$com_std_found = true;
 					$com_std = 'com_menus';
@@ -417,6 +534,7 @@ class plgSystemListViewRemPos extends JPlugin
 				}
 			}
 			elseif (strpos ($_SERVER['REQUEST_URI'],'option=com_users') ) {
+//	       		echo '<br />'.'com_usersfound';
 				if ( $this->params->get('LVRP_com_users') ) {
 					$com_std_found = true;
 					$com_std = 'com_users';
@@ -434,6 +552,7 @@ class plgSystemListViewRemPos extends JPlugin
 					$com_std = 'com_fields';
 				}
 			}
+
 			return;
 		} // End function checkStdParms    
 } // End class plgSystemListViewRemPos

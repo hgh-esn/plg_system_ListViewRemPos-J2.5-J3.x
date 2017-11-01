@@ -175,30 +175,14 @@ class plgSystemListViewRemPos extends JPlugin
 				JResponse::setBody($html);
 			}
 		} // End  function onAfterRender
-    /**
-     * Log events.
-     *
-     * @param string $event The event to be logged.
-     * @param string $comment A comment about the event.
-     */
-		private function _log ($status, $comment)
-		{
-		}
-		public function loadparms($subject, $config) 
-		{
-			/* ----------------------------------
-			 * load the extended plugin-params
-			 * ---------------------------------- */
-			$params = $this->params;
-		}
+    		/************************************************************
+		 * This function checks if the joomla extended-call-strings 
+		 * of   > extra installed extensions <   should be checked.
+		 * -----------------------------------------------------------     
+		 * Note: the user can define them by the extended plugin-parms
+		 ************************************************************ */
 		public function checkAdvParms() 
 		{
-		  /************************************************************
-		   * This function checks if the joomla extended-call-strings 
-		   * of   > extra installed extensions <   should be checked.
-		   * -----------------------------------------------------------     
-		   * Note: the user can define them by the extended plugin-parms
-		   ************************************************************ */
 			global $com_adv_found;
 			global $com_adv;
 			$com_adv_found = false;
@@ -305,15 +289,14 @@ class plgSystemListViewRemPos extends JPlugin
 			}
 			return;
 		} // End function checkAdvParms
+		/************************************************************
+		 * This function checks if the call-strings of standard-extensions 
+		 * of joomla should be checked. 
+		 * -----------------------------------------------------------     
+		 * Note: the user can switch them off/on via plugin-parms
+		 ************************************************************ */
 		public function checkStdParms() 
-		{
-			/************************************************************
-			 * This function checks if the call-strings of standard-extensions 
-			 * of joomla should be checked. 
-			 * -----------------------------------------------------------     
-			 * Note: the user can switch them off/on via plugin-parms
-			 ************************************************************ */
-			global $com_std_found;
+		{			global $com_std_found;
 			global $com_std;
 			$com_std_found = false;
 			$com_std = '';

@@ -8,7 +8,7 @@
  * @author     Created on 18-Sep-2014
  * @license    GNU/GPL Public License version 2 or later
  *
- * 1.1.1 + remove comments
+ * 1.1.1 + code restructering
  * 1.1.0 + changed all buttons with listitemtask ....
  *       + changed homepage-/mail-address
  *       + some errors into joomla message-queue

@@ -43,6 +43,9 @@ Legend:
  - -> Removed
  ! -> Note
 ______________________________________________
+01.Nov.2017
+ ! V1.1.1: 
+ - remoce inline-comments for production
 31.Okt.2017
  ! V1.1.0: J3x
  ^ changed all buttons with listitemtask ....

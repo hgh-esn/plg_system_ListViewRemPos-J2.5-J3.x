@@ -4,7 +4,7 @@
   <creationDate>01-Nov-2017</creationDate>
   <author>Hans-Guenter Heiserholt</author>
   <authorEmail>joomla@moba-hgh.de</authorEmail>
-  <authorUrl>http://www.moba-hgh.de</authorUrl>
+  <authorUrl>http://moba-hgh.de/joomla</authorUrl>
   <copyright>JED-HGH | Joomla Extension Development by HGH</copyright>
   <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
   <version>1.1.1</version>
@@ -16,7 +16,7 @@
          <tr>
           <td width="100%" style="font-size: 10pt">
            <div name="header">
-            <a href="http://www.web-hgh-moba.de/joomla/myextensions/myplugins/1727-listviewrempos" target="_blank" title="erw. Dokumentation / add. Documentation">
+            <a href="https://moba-hgh.de/joomla/myextensions/myplugins/1727-listviewrempos" target="_blank" title="erw. Dokumentation / add. Documentation">
                <img src="/media/plg_listviewrempos/images/lvrp_logo.jpg"  style="margin-right: 5px; float: left;" alt="Logo" />
             </a>
             <img src="../media/plg_listviewrempos/images/j25.png" alt="Joomla!  2.5 Series">
@@ -26,12 +26,12 @@
          <p>Sie können zusätzlich weitere Listviews in die Funktionalität integrieren - sehen sie dazu im Reiter <b>"</b>Erweitert<b>"</b> nach. Dort können sie die notwendigen Angaben machen.
          </p>
             <p>Wenn sie das Plugin <span style="color:blue;">ListViewRemPos</span> nutzen, hinterlassen sie bitte eine Bewertung und einen Kommentar im  
-            <a href="http://extensions.joomla.org/extensions/structure-a-navigation/site-navigation" target="_blank">Joomla! Extensions Directory.</a>
+            <a href="https://extensions.joomla.org/extensions/extension/structure-a-navigation/site-navigation/listview-remember-position/" target="_blank">Joomla! Extensions Directory.</a>
             Vielen Dank dafür.</p>
             <p>This plugin remembers the selected position in the Joomla backend-listviews. It avoids you from a lot of scrolling.<br />For extending additional listviews to the functionallity of the plugin, see the tab <b>"</b>Advanced<b>"</b>.
             </p>
             <p>If you use the plugin <span style="color:blue;">ListViewRemPos</span>, please post a rating and a comment at the 
-            <a href="http://extensions.joomla.org/extensions/structure-a-navigation/site-navigation" target="_blank">Joomla! Extensions Directory.</a>
+            <a href="https://extensions.joomla.org/extensions/extension/structure-a-navigation/site-navigation/listview-remember-position/" target="_blank">Joomla! Extensions Directory.</a>
             Thanks for that.</p>
             </div>
           </td>

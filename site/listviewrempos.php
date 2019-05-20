@@ -7,7 +7,10 @@
  * @author     Hans-Guenter Heiserholt {@link http://www.moba-hgh.de}
  * @author     Created on 18-Sep-2014
  * @license    GNU/GPL Public License version 2 or later
+ * @version    1.1.2
  *
+ * 1.1.2 - remove ../ from media/xxxxx
+ *       + change en-GB language files
  * 1.1.1 + code restructering
  * 1.1.0 + changed all buttons with listitemtask ....
  *       + changed homepage-/mail-address
@@ -73,19 +76,22 @@ class plgSystemListViewRemPos extends JPlugin
 			$application = JFactory::getApplication();
 			if ($com_adv_found === true || $com_std_found === true) 
 			{
-				if ( strpos ($_SERVER['REQUEST_URI'],'=edit') || strpos ($_SERVER['REQUEST_URI'],'id=')	) 
+				if ( strpos ($_SERVER['REQUEST_URI'],'=edit') || 
+					 strpos ($_SERVER['REQUEST_URI'],'id=')	
+				   ) 
 				{
 		//			 do nothing in editor-mode !
 					return;     
 				}
 				/* ----------------------------------
-				 * get the document-objekt
+				 * get the document-object
 				 * ---------------------------------- */
-				$doc = & JFactory::getDocument();
+// bringt error $doc = & JFactory::getDocument();
+				$doc = JFactory::getDocument();
 				/* ----------------------------------
 				 * put in js-script to load js-code in html
 				 * ---------------------------------- */
-					$doc->addScript('../media/plg_listviewrempos/js/listviewrempos.js');
+					$doc->addScript('/media/plg_listviewrempos/js/listviewrempos.js');
 				/* ----------------------------------
 				 * set load-event to html
 				 * ---------------------------------- */  
@@ -131,7 +137,16 @@ class plgSystemListViewRemPos extends JPlugin
 				 * the clicked position within the list
 				 * ---------------------------------- */
 				$oncl = 'onclick="LVRP_getPos()" ';
-				$admin_lnk ='/administrator/index.php?option=';
+// 				if (strpos($_SERVER['REQUEST_URI'],'administrator') {
+// 					$admin_lnk = '/administrator/index.php?option=';
+// 				} else {
+// 		            $pos = strpos($_SERVER['REQUEST_URI'],'/add-new-entry')
+//		 			alert ('strpos=' + $pos);
+// 					if ( $pos < 1 ){
+// 						$admin_lnk = '/';
+// 					}					
+//				}
+ 				$admin_lnk ='/administrator/index.php?option=';
 				if ($com_adv) 
 				{
 					$href = 'href="' .$admin_lnk .$com_adv;
@@ -156,7 +171,7 @@ class plgSystemListViewRemPos extends JPlugin
 				 * do the change: 
 				 * Put the onClick call before all matching href's
 				 *
-				 * str_replace ( such-string , ergebnis , zu durchsuchender string  )
+				 * str_replace ( search-string , ergebnis , zu durchsuchender string  )
 				 * ----------------------------------------------------------------- */
 				$body_new = str_replace($href, $oncl .$href, $match[0]);
 				$body_new = str_replace($hrefH, $oncl .$hrefH, $body_new);

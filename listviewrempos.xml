@@ -7,7 +7,7 @@
   <authorUrl>http://moba-hgh.de/joomla</authorUrl>
   <copyright>JED-HGH | Joomla Extension Development by HGH</copyright>
   <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-  <version>1.1.1</version>
+  <version>1.1.2</version>
   <description>Rückkehr zur Auswahlposition in Joomla Auflistung. / Return to the selected position in Joomla listviews.
 <![CDATA[
    <hr />
@@ -16,7 +16,7 @@
          <tr>
           <td width="100%" style="font-size: 10pt">
            <div name="header">
-            <a href="https://moba-hgh.de/joomla/myextensions/myplugins/1727-listviewrempos" target="_blank" title="erw. Dokumentation / add. Documentation">
+            <a href="https://moba-hgh.de/joomla/myextensions/myplugins/1727-listviewrempos" target="_blank" rel="noreferrer" title="erw. Dokumentation / add. Documentation">
                <img src="/media/plg_listviewrempos/images/lvrp_logo.jpg"  style="margin-right: 5px; float: left;" alt="Logo" />
             </a>
             <img src="../media/plg_listviewrempos/images/j25.png" alt="Joomla!  2.5 Series">
@@ -26,12 +26,12 @@
          <p>Sie können zusätzlich weitere Listviews in die Funktionalität integrieren - sehen sie dazu im Reiter <b>"</b>Erweitert<b>"</b> nach. Dort können sie die notwendigen Angaben machen.
          </p>
             <p>Wenn sie das Plugin <span style="color:blue;">ListViewRemPos</span> nutzen, hinterlassen sie bitte eine Bewertung und einen Kommentar im  
-            <a href="https://extensions.joomla.org/extensions/extension/structure-a-navigation/site-navigation/listview-remember-position/" target="_blank">Joomla! Extensions Directory.</a>
+            <a href="https://extensions.joomla.org/extensions/extension/structure-a-navigation/site-navigation/listview-remember-position/" target="_blank" rel="noreferrer">Joomla! Extensions Directory.</a>
             Vielen Dank dafür.</p>
             <p>This plugin remembers the selected position in the Joomla backend-listviews. It avoids you from a lot of scrolling.<br />For extending additional listviews to the functionallity of the plugin, see the tab <b>"</b>Advanced<b>"</b>.
             </p>
             <p>If you use the plugin <span style="color:blue;">ListViewRemPos</span>, please post a rating and a comment at the 
-            <a href="https://extensions.joomla.org/extensions/extension/structure-a-navigation/site-navigation/listview-remember-position/" target="_blank">Joomla! Extensions Directory.</a>
+            <a href="https://extensions.joomla.org/extensions/extension/structure-a-navigation/site-navigation/listview-remember-position/" target="_blank" rel="noreferrer">Joomla! Extensions Directory.</a>
             Thanks for that.</p>
             </div>
           </td>
@@ -41,7 +41,7 @@
            <div name="languages">
              <div name="de-DE">
                <span style="color:red"><strong>Wichtig:</strong></span>
-               <br />Sie müssen das Plugin nun noch abschließend manuell aktivieren. Dazu gehen sie zum <strong>Plugin Manager </strong><a href="../administrator/index.php?option=com_plugins&amp;view=plugins&amp;filter_client_id=1&amp;filter_plugin=plg_listviewrempos" target="_blank"><span style="color:red">(benutzen sie diesen Link)</span></a>, aktivieren sie das Plugin und setzen sie die <b>Zugriffsebene</b>auf <b>Special</b>. Vergessen sie nicht, ihre Einstellungen zu <b>Speichern</b>! 
+               <br />Sie müssen das Plugin nun noch abschließend manuell aktivieren. Dazu gehen sie zum <strong>Plugin Manager </strong><a href="../administrator/index.php?option=com_plugins&amp;view=plugins&amp;filter_client_id=1&amp;filter_plugin=plg_listviewrempos" target="_blank" rel="noreferrer"><span style="color:red">(benutzen sie diesen Link)</span></a>, aktivieren sie das Plugin und setzen sie die <b>Zugriffsebene </b>auf<b> Special</b>. Vergessen sie nicht, ihre Einstellungen zu <b>Speichern</b>! 
                <br />
                <span style="color:red"><strong>Haftungsausschluss:</strong></span>
                <br />Diese Software wurde nach bestem Wissen für das CMS Joomla programmiert. Die Nutzung erfolgt aber trotzdem auf eigene Gefahr.
@@ -50,7 +50,7 @@
              <div name="en-EN">
                <hr>
                <span style="color:red"><strong>Important:</strong></span>
-               <br />Finally you must enable the plugin manually now. For that, go to the <strong>Plugin Manager </strong><a href="../administrator/index.php?option=com_plugins&amp;view=plugins&amp;filter_client_id=1&amp;filter_plugin=plg_listviewrempos" target="_blank"><span style="color:red">(use this link)</span></a>. Enable the plugin and set the <b>access-level</b> to <b>special</b>. Do not forget to <b>save</b> the configuration after that!
+               <br />Finally you must enable the plugin manually now. For that, go to the <strong>Plugin Manager </strong><a href="../administrator/index.php?option=com_plugins&amp;view=plugins&amp;filter_client_id=1&amp;filter_plugin=plg_listviewrempos" target="_blank" rel="noreferrer"><span style="color:red">(use this link)</span></a>. Enable the plugin and set the <b>access-level</b> to <b>special</b>. Do not forget to <b>save</b> the configuration after that!
                <br />
                <span style="color:red"><strong>Disclaimer:</strong></span>
                <br />This software has been programmed to the best knowledge for the CMS Joomla. The data is used but still at your own risk.
@@ -124,6 +124,10 @@
 					<option value="1">JYES</option>
 				</field>
 				<field name="LVRP_com_fields" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_FIELDS_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_FIELDS_DESC">
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="LVRP_com_feldgroups" type="radio" class="btn-group" default="1" label="PLG_SYSTEM_LVRP_STD_LABEL_COM_FIELD_GROUPS_TXT" description="PLG_SYSTEM_LVRP_STD_LABEL_COM_FIELD_GROUPS_DESC">
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
